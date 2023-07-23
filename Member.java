@@ -1,22 +1,22 @@
 import java.util.ArrayList;
 
-interface Room {
+interface Available {
   Kamar getKamarByName(String id);
 }
 
-abstract class Member implements Room {
+abstract class Member implements Available {
   String id;
   String name;
-  ArrayList<Kamar> borrowedBooks;
+  ArrayList<Kamar> borrowedRooms;
 
   public Member(String id, String name) {
     this.id = id;
     this.name = name;
-    this.borrowedBooks = new ArrayList<Kamar>();
+    this.borrowedRooms = new ArrayList<Kamar>();
   }
 
   public ArrayList<Kamar> getborrowedRooms() {
-    return borrowedBooks;
+    return borrowedRooms;
   }
 
   public abstract Kamar getKamarByName(String id);
@@ -29,7 +29,7 @@ class createMember extends Member {
 
   @Override
   public Kamar getKamarByName(String name) {
-    for (Kamar kamar : this.borrowedBooks) {
+    for (Kamar kamar : this.borrowedRooms) {
       if (kamar.getName().equals(name)) {
         return kamar;
       }
