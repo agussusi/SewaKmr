@@ -5,8 +5,9 @@ import java.util.ArrayList;
 
   public Sewa(){
 	this.kamars = new ArrayList<>();
-    this.members = new ArrayList<>();
+  this.members = new ArrayList<>();
   }
+
   protected int getMemberIndex(Member member) {
     return this.members.indexOf(member);
   }
@@ -17,7 +18,7 @@ import java.util.ArrayList;
         return member;
       }
     }
-    throw new Exception("Member " + id + " tidak ada");
+    throw new Exception("Member " + id + " tidak ditemukan");
   }
 
   protected Kamar getKamarByName(String name) throws Exception {
@@ -34,7 +35,7 @@ import java.util.ArrayList;
       this.members.add(member);
       System.out.println("Member berhasil ditambahkan");
     } else {
-      System.out.println("Member ID " + member.id + " sudah tersedia");
+      System.out.println("Member dengan ID " + member.id + " sudah tersedia");
     }
   }
 
@@ -74,23 +75,22 @@ import java.util.ArrayList;
             this.members.get(memberIndex).getborrowedRooms().remove(kamar);
             System.out.println("Kamar " + kamar.getName() + " berhasil dikembalikan oleh member " + member.id);
         } else {
-            System.out.println("Kamar " + name + " tidak sedang dipinjam oleh member " + member.id);
+            System.out.println("Kamar " + name + " tidak sedang disewa oleh member " + member.id);
         }
     } catch (Exception e) {
         System.out.println(e.getMessage());
     }
+  }
 }
 
-}
-
-abstract class Edit extends Sewa {
+interface Edit{
 	public abstract void addRoom(Kamar kamars);
 	public abstract void updateKamar(int id, Kamar kamars);
 	public abstract void deleteMember(int id);
 }
 
 
-class Crud extends Edit {
+class Crud extends Sewa implements Edit {
 
 	@Override
 	public void addRoom(Kamar kamars) {
@@ -108,7 +108,6 @@ class Crud extends Edit {
 		members.remove(id-1);
 		System.out.println("Member Berhasil Dihapus");
 	}
-
 }
  
  
